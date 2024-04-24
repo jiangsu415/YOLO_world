@@ -1,231 +1,75 @@
-<<<<<<< HEAD
-# YOLO_world
-=======
-<div align="center">
-<img src="./assets/yolo_logo.png" width=60%>
-<br>
-<a href="https://scholar.google.com/citations?hl=zh-CN&user=PH8rJHYAAAAJ">Tianheng Cheng</a><sup><span>2,3,*</span></sup>, 
-<a href="https://linsong.info/">Lin Song</a><sup><span>1,📧,*</span></sup>,
-<a href="https://yxgeee.github.io/">Yixiao Ge</a><sup><span>1,🌟,2</span></sup>,
-<a href="http://eic.hust.edu.cn/professor/liuwenyu/"> Wenyu Liu</a><sup><span>3</span></sup>,
-<a href="https://xwcv.github.io/">Xinggang Wang</a><sup><span>3,📧</span></sup>,
-<a href="https://scholar.google.com/citations?user=4oXBp9UAAAAJ&hl=en">Ying Shan</a><sup><span>1,2</span></sup>
-</br>
-
-\* Equal contribution 🌟 Project lead 📧 Corresponding author
+![image-20240407202132117](https://github.com/jiangsu415/yolo_world/assets/130949548/bfa3052d-f8f0-4109-9ba4-58a163072627)**创新点：**1.可重参数化的视觉语言路径聚合网络和区域文本对比损失
 
-<sup>1</sup> Tencent AI Lab,  <sup>2</sup> ARC Lab, Tencent PCG
-<sup>3</sup> Huazhong University of Science and Technology
-<br>
-<div>
-
-[![arxiv paper](https://img.shields.io/badge/Project-Page-green)](https://wondervictor.github.io/)
-[![arxiv paper](https://img.shields.io/badge/arXiv-Paper-red)](https://arxiv.org/abs/2401.17270)
-<a href="https://colab.research.google.com/github/AILab-CVC/YOLO-World/blob/master/inference.ipynb"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"></a>
-[![demo](https://img.shields.io/badge/🤗HugginngFace-Spaces-orange)](https://huggingface.co/spaces/stevengrove/YOLO-World)
-[![Replicate](https://replicate.com/zsxkib/yolo-world/badge)](https://replicate.com/zsxkib/yolo-world)
-[![hfpaper](https://img.shields.io/badge/🤗HugginngFace-Paper-yellow)](https://huggingface.co/papers/2401.17270)
-[![license](https://img.shields.io/badge/License-GPLv3.0-blue)](LICENSE)
-[![yoloworldseg](https://img.shields.io/badge/YOLOWorldxEfficientSAM-🤗Spaces-orange)](https://huggingface.co/spaces/SkalskiP/YOLO-World)
-[![yologuide](https://img.shields.io/badge/📖Notebook-roboflow-purple)](https://supervision.roboflow.com/develop/notebooks/zero-shot-object-detection-with-yolo-world)
-[![deploy](https://media.roboflow.com/deploy.svg)](https://inference.roboflow.com/foundation/yolo_world/)
+​				3.新的预训练方案：将检测数据、定位数据和图像文本数据统一为区域文本对
 
-</div>
-</div>
+​				3.Promopt-and-detect "先提示后检测"：首先对用户提示进行编码，建立离线词汇，该词汇对离线需求不断变化，然后在推理时可以在运行时推断出离线词汇，而无需对提示进行编码
 
-## Notice
+​				4.包含在1内的创新点：**文本引导的CSPLayer（T-CSPLayer）和图像池化注意力**（I-Pooling Attention）加强图像与文本特征之间的交互。
 
-We recommend that everyone **use English to communicate on issues**, as this helps developers from around the world discuss, share experiences, and answer questions together.
+**可创新点：**1.小型检测器进行预训练以赋予其开放识别的能力（以往都是采用一些重型的网络结构）
 
-## 🔥 Updates 
-`[2024-3-16]:` We fix the bugs about the demo ([#110](https://github.com/AILab-CVC/YOLO-World/issues/110),[#94](https://github.com/AILab-CVC/YOLO-World/issues/94),[#129](https://github.com/AILab-CVC/YOLO-World/issues/129), [#125](https://github.com/AILab-CVC/YOLO-World/issues/125)) with visualizations of segmentation masks, and release [**YOLO-World with Embeddings**](./docs/prompt_yolo_world.md), which supports prompt tuning, text prompts and image prompts.  
-`[2024-3-3]:` We add the **high-resolution YOLO-World**, which supports `1280x1280` resolution with higher accuracy and better performance for small objects!  
-`[2024-2-29]:` We release the newest version of [ **YOLO-World-v2**](./docs/updates.md) with higher accuracy and faster speed! We hope the community can join us to improve YOLO-World!  
-`[2024-2-28]:` Excited to announce that YOLO-World has been accepted by **CVPR 2024**! We're continuing to make YOLO-World faster and stronger, as well as making it better to use for all.  
-`[2024-2-22]:` We sincerely thank [RoboFlow](https://roboflow.com/) and [@Skalskip92](https://twitter.com/skalskip92) for the [**Video Guide**](https://www.youtube.com/watch?v=X7gKBGVz4vs) about YOLO-World, nice work!  
-`[2024-2-18]:` We thank [@Skalskip92](https://twitter.com/skalskip92) for developing the wonderful segmentation demo via connecting YOLO-World and EfficientSAM. You can try it now at the [🤗 HuggingFace Spaces](https://huggingface.co/spaces/SkalskiP/YOLO-World).   
-`[2024-2-17]:` The largest model **X** of YOLO-World is released, which achieves better zero-shot performance!   
-`[2024-2-17]:` We release the code & models for **YOLO-World-Seg** now! YOLO-World now supports open-vocabulary / zero-shot object segmentation!  
-`[2024-2-15]:` The pre-traind YOLO-World-L with CC3M-Lite is released!     
-`[2024-2-14]:` We provide the [`image_demo`](demo.py) for inference on images or directories.   
-`[2024-2-10]:` We provide the [fine-tuning](./docs/finetuning.md) and [data](./docs/data.md) details for fine-tuning YOLO-World on the COCO dataset or the custom datasets!  
-`[2024-2-3]:` We support the `Gradio` demo now in the repo and you can build the YOLO-World demo on your own device!  
-`[2024-2-1]:` We've released the code and weights of YOLO-World now!  
-`[2024-2-1]:` We deploy the YOLO-World demo on [HuggingFace 🤗](https://huggingface.co/spaces/stevengrove/YOLO-World), you can try it now!  
-`[2024-1-31]:` We are excited to launch **YOLO-World**, a cutting-edge real-time open-vocabulary object detector.  
+​					2.YOLOV8
 
+​					3.T-CSPlayer结构
 
-## TODO
+**结构：**图片检测分支的backbone为YOLOV8，在训练时，对输入文本采用预训练过的CLIP进行编码（检测时舍弃编码器，使用文本嵌入可重新参数化的REPvl-PAN的权重），使用REPVL-PAN链接语言文本和图像特征，之后采用了一个文本对比头部包含两个3*3的卷积来回归边界框和对象嵌入（用于视觉-语言模型中的一个组件，用于对比学习。它的目标是通过学习区分正样本和负样本对，从而使视觉和文本表示相互对齐。在视觉-语言任务中，正样本对由一张图像和其对应的文本描述或标题组成，而负样本对则由一张图像和不同的文本描述组成。其目标是鼓励模型将相似的视觉和文本表示映射到嵌入空间中的相近位置，同时将不相似的表示推开）和box-head用于预测边界框和类别等。
 
-YOLO-World is under active development and please stay tuned ☕️! 
-If you have suggestions📃 or ideas💡,**we would love for you to bring them up in the [Roadmap](https://github.com/AILab-CVC/YOLO-World/issues/109)** ❤️!
-> YOLO-World 目前正在积极开发中📃，如果你有建议或者想法💡，**我们非常希望您在 [Roadmap](https://github.com/AILab-CVC/YOLO-World/issues/109) 中提出来** ❤️！
+*损失函数：遵循[20]并利用任务对齐的标签分配[9]将预测与真实注释进行匹配，并将每个正预测分配一个文本索引作为分类标签。基于对象-文本（区域文本的相似度）和对象文本分配的交叉熵构建区域文本对比损失，和IOU和分布焦点损失进行文本框回归*
 
-## [FAQ (Frequently Asked Questions)](https://github.com/AILab-CVC/YOLO-World/discussions/149)
+**个人理解：**
 
-We have set up an FAQ about YOLO-World in the discussion on GitHub. We hope everyone can raise issues or solutions during use here, and we also hope that everyone can quickly find solutions from it.
+离线词汇：可能是在推理时，根据用户的输入匹配已经编码好的文献词汇表，在里面查找，比如说“在雪地上，有一只狗”，在词汇表中匹配狗这个名词，即使模型在训练时没有标签中没有狗这个名词，根据文本嵌入可以找出狗这个目标。离线词汇表可以避免为每个输入进行计算，并提供根据需要调整词汇表的灵活性。
 
-> 我们在GitHub的discussion中建立了关于YOLO-World的常见问答，这里将收集一些常见问题，同时大家可以在此提出使用中的问题或者解决方案，也希望大家能够从中快速寻找到解决方案
+可重新参数化：在推理时，将离线词汇表嵌入到卷积层或者BN层
 
+T-CSPLayer：先经过一个Dark bottleneck网络结构进行一个图像特征提取，之后利用max-sigmoid融合图像和文本特征，最终再连接其他尺度的特征：
 
-## Highlights & Introduction
+I-pooling Attention：类似于YOLOV5和YOLOV7的多尺度通过不同尺寸的卷积去做池化然后拼接在一起后再连接一共MHCA，可能是注意力
 
-This repo contains the PyTorch implementation, pre-trained weights, and pre-training/fine-tuning code for YOLO-World.
+Image-aware Embedding：图像感知嵌入联合捕捉图像和文本特征
 
-* YOLO-World is pre-trained on large-scale datasets, including detection, grounding, and image-text datasets.
+**后续需要学习的地方：**YOLOV8，CLIP，Dark Bottleneck，Max-sigmoid注意力，图像池化注意力
+![image-20240326150553574](https://github.com/jiangsu415/yolo_world/assets/130949548/2acc968c-81ec-44db-8727-46110012c3de)
 
-* YOLO-World is the next-generation YOLO detector, with a strong open-vocabulary detection capability and grounding ability.
+区域文本对比损失：就是视觉提出来的候选框是文本想要的损失就低不是就高
 
-* YOLO-World presents a *prompt-then-detect* paradigm for efficient user-vocabulary inference, which re-parameterizes vocabulary embeddings as parameters into the model and achieve superior inference speed. You can try to export your own detection model without extra training or fine-tuning in our [online demo](https://huggingface.co/spaces/stevengrove/YOLO-World)!
+区域—文本对，将一些类别变成文本的描述
 
+![image-20240407200200237](https://github.com/jiangsu415/yolo_world/assets/130949548/1c14a5f5-c692-4d0e-bdf4-9cfd412b0386)
 
-<center>
-<img width=800px src="./assets/yolo_arch.png">
-</center>
+输出为预测框和Emedding，当选出一个候选框后其内的物体做成Embedding向量，然后与输入的文本特征向量看一个相似度是属于哪一个类别
 
-## Model Zoo
+![image-20240407200807057](https://github.com/jiangsu415/yolo_world/assets/130949548/de59b6a1-c85f-4eaf-953b-523f17b42357)
 
-We've pre-trained YOLO-World-S/M/L from scratch and evaluate on the `LVIS val-1.0` and `LVIS minival`. We provide the pre-trained model weights and training logs for applications/research or re-producing the results.
+文本和图像互相增强，文本与图像要经过一个跨模态的融合，类似于视觉cross-attention的方法，图像的每一块特征图中都与文本的token去计算关系
+![image-20240407202132117](https://github.com/jiangsu415/yolo_world/assets/130949548/f2b6c955-c758-4977-a0ea-54c9a0310b1d)
 
-### Zero-shot Inference on LVIS dataset
+输出是一个坐标框的回归和匹配文本，预测的Embedding与哪一个文本比较相似，和哪个文本比较相似就是哪一个
 
-| model                                                                                                                | Pre-train Data       | Size | AP<sup>mini</su> | AP<sub>r</sub> | AP<sub>c</sub> | AP<sub>f</sub> | AP<sup>val</su> | AP<sub>r</sub> | AP<sub>c</sub> | AP<sub>f</sub> |                                                                                        weights                                                                                         |
-| :------------------------------------------------------------------------------------------------------------------- | :------------------- | :----------------- | :--------------: | :------------: | :------------: | :------------: | :-------------: | :------------: | :------------: | :------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-| [YOLO-World-S](./configs/pretrain/yolo_world_s_dual_vlpan_l2norm_2e-3_100e_4x8gpus_obj365v1_goldg_train_lvis_minival.py)   | O365+GoldG           |        640        |       24.3       |      16.6      |      22.1      |      27.7      |      17.8       |      11.0      |      14.8      |      24.0      |    [HF Checkpoints 🤗](https://huggingface.co/wondervictor/YOLO-World/resolve/main/yolo_world_s_clip_base_dual_vlpan_2e-3adamw_32xb16_100e_o365_goldg_train_pretrained-18bea4d2.pth)    |
-| [YOLO-Worldv2-S](./configs/pretrain/yolo_world_v2_s_vlpan_bn_2e-3_100e_4x8gpus_obj365v1_goldg_train_lvis_minival.py) 🔥  | O365+GoldG | 640 | 22.7 | 16.3 | 20.8 | 25.5 |  17.3 | 11.3 | 14.9 | 22.7 |[HF Checkpoints 🤗](https://huggingface.co/wondervictor/YOLO-World/blob/main/yolo_world_v2_s_obj365v1_goldg_pretrain-55b943ea.pth)| 
-| [YOLO-World-M](./configs/pretrain/yolo_world_m_dual_l2norm_2e-4_100e_4x8gpus_obj365v1_goldg_train_lvis_minival.py)   | O365+GoldG           |        31.0        |       28.6       |      19.7      |      26.6      |      31.9      |      22.3       |      16.2      |      19.0      |      28.7      |    [HF Checkpoints 🤗](https://huggingface.co/wondervictor/YOLO-World/resolve/main/yolo_world_m_clip_base_dual_vlpan_2e-3adamw_32xb16_100e_o365_goldg_train_pretrained-2b7bd1be.pth)    |
-| [YOLO-Worldv2-M](./configs/pretrain/yolo_world_v2_m_vlpan_bn_2e-3_100e_4x8gpus_obj365v1_goldg_train_lvis_minival.py) 🔥  | O365+GoldG | 640 | 30.0 | 25.0  | 27.2 | 33.4 | 23.5 | 17.1 | 20.0 | 30.1 | [HF Checkpoints 🤗](https://huggingface.co/wondervictor/YOLO-World/blob/main/yolo_world_v2_m_obj365v1_goldg_pretrain-c6237d5b.pth)| 
-| [YOLO-World-L](./configs/pretrain/yolo_world_l_dual_vlpan_l2norm_2e-3_100e_4x8gpus_obj365v1_goldg_train_lvis_minival.py)   | O365+GoldG           |        640        |       32.5       |      22.3      |      30.6      |      36.1      |      24.8       |      17.8      |      22.4      |      32.5      |    [HF Checkpoints 🤗](https://huggingface.co/wondervictor/YOLO-World/resolve/main/yolo_world_l_clip_base_dual_vlpan_2e-3adamw_32xb16_100e_o365_goldg_train_pretrained-0e566235.pth)    |
-| [YOLO-World-L](./configs/pretrain/yolo_world_l_dual_vlpan_l2norm_2e-3_100e_4x8gpus_obj365v1_goldg_train_lvis_minival.py) | O365+GoldG+CC3M-Lite |        640        |       33.0       |      23.6      |      32.0      |      35.5      |      25.3       |      18.0      |      22.1      |      32.1      | [HF Checkpoints 🤗](https://huggingface.co/wondervictor/YOLO-World/blob/main/yolo_world_l_clip_base_dual_vlpan_2e-3adamw_32xb16_100e_o365_goldg_cc3mlite_train_pretrained-7a5eea3b.pth) |
-| [YOLO-Worldv2-L](./configs/pretrain/yolo_world_v2_l_vlpan_bn_2e-3_100e_4x8gpus_obj365v1_goldg_train_lvis_minival.py) 🔥  | O365+GoldG | 640 | 33.0 | 22.6 | 32.0 | 35.8 | 26.0 | 18.6 | 23.0 | 32.6 | [HF Checkpoints 🤗](https://huggingface.co/wondervictor/YOLO-World/blob/main/yolo_world_v2_l_obj365v1_goldg_pretrain-a82b1fe3.pth)| 
-| [YOLO-Worldv2-L](./configs/pretrain/yolo_world_v2_l_vlpan_bn_2e-3_100e_4x8gpus_obj365v1_goldg_train_1280ft_lvis_minival.py) 🔥  | O365+GoldG | 1280 &#x1F538; | 34.6 | 29.2 | 32.8 | 37.2 | 27.6 | 21.9 | 24.2 | 34.0 | [HF Checkpoints 🤗](https://huggingface.co/wondervictor/YOLO-World/blob/main/yolo_world_v2_l_obj365v1_goldg_pretrain_1280ft-9babe3f6.pth)| 
-| [YOLO-Worldv2-L](./configs/pretrain/yolo_world_v2_l_vlpan_bn_2e-3_100e_4x8gpus_obj365v1_goldg_train_lvis_minival.py) 🔥 | O365+GoldG+CC3M-Lite | 640 | 32.9 | 25.3 | 31.1 | 35.8 | 26.1 | 20.6 | 22.6 | 32.3 | [HF Checkpoints 🤗](https://huggingface.co/wondervictor/YOLO-World/blob/main/yolo_world_v2_l_obj365v1_goldg_cc3mlite_pretrain-ca93cd1f.pth)|
-| [YOLO-World-X](./configs/pretrain/yolo_world_x_dual_vlpan_l2norm_2e-3_100e_4x8gpus_obj365v1_goldg_train_lvis_minival.py) | O365+GoldG+CC3M-Lite | 640 | 33.4 | 24.4 | 31.6 | 36.6 | 26.6 | 19.2 | 23.5 | 33.2 | [HF Checkpoints 🤗](https://huggingface.co/wondervictor/YOLO-World/blob/main/yolo_world_x_clip_base_dual_vlpan_2e-3adamw_32xb16_100e_o365_goldg_cc3mlite_train_pretrained-8cf6b025.pth) |
-| [YOLO-Worldv2-X](./configs/pretrain/yolo_world_v2_x_vlpan_bn_2e-3_100e_4x8gpus_obj365v1_goldg_train_lvis_minival.py) 🔥  | O365+GoldG+CC3M-Lite | 640 | 35.4 | 28.7 | 32.9 | 38.7 | 28.4 | 20.6 | 25.6 | 35.0 | [HF Checkpoints 🤗](https://huggingface.co/wondervictor/YOLO-World/blob/main/yolo_world_v2_x_obj365v1_goldg_cc3mlite_pretrain-8698fbfa.pth) |
+“我想找一只狗”他会提出来狗这一名词，并编码为一个D维的特征向量，只提取一些关键的名词.并且这个文本编码器能更好的适应图像特征
 
-**NOTE:**
-1. AP<sup>mini</sup>: evaluated on LVIS `minival`.
-3. AP<sup>val</sup>: evaluated on LVIS `val 1.0`.
-4. [HuggingFace Mirror](https://hf-mirror.com/) provides the mirror of HuggingFace, which is a choice for users who are unable to reach.
-5. &#x1F538;: fine-tuning models with the pre-trained data.
+![image-20240407211602873](https://github.com/jiangsu415/yolo_world/assets/130949548/750d5c53-1970-43c9-b094-dee92dd04c84)
 
-**Pre-training Logs:**
+回归的文本框和物体编码，wj是文本的特征，ek是物体的embedding，先做一个norm，然后每一个去计算内积匹配，
 
-We provide the pre-training logs of `YOLO-World-v2`. Due to the unexpected errors of the local machines, the training might be interrupted several times.
+![image-20240409150028687](https://github.com/jiangsu415/yolo_world/assets/130949548/721b05f9-d688-4577-8ca1-81374dd285f1)
 
-| Model | Pre-training Log |
-| :---: | :--------------: |
-| YOLO-World-v2-S | [Part-1](https://drive.google.com/file/d/1oib7pKfA2h1U_5-85H_s0Nz8jWd0R-WP/view?usp=drive_link), [Part-2](https://drive.google.com/file/d/11cZ6OZy80VTvBlZy3kzLAHCxx5Iix5-n/view?usp=drive_link) |
-| YOLO-World-v2-L | [Part-1](https://drive.google.com/file/d/1Tola1QGJZTL6nGy3SBxKuknfNfREDm8J/view?usp=drive_link), [Part-2](https://drive.google.com/file/d/1mTBXniioUb0CdctCG4ckIU6idGo0NnH8/view?usp=drive_link) |
-| YOLO-World-v2-M | [Part-1](https://drive.google.com/file/d/1E6vYSS8kBipGc8oQnsjAfeUAx8I9yOX7/view?usp=drive_link), [Part-2](https://drive.google.com/file/d/1fbM7vt2tgSeB8o_7tUDofWvpPNSViNj5/view?usp=drive_link) |
-| YOLO-World-v2-X | [Final part](https://drive.google.com/file/d/1aEUA_EPQbXOrpxHTQYB6ieGXudb1PLpd/view?usp=drive_link) |
+先人为写一些提示，然后把文本做编码，获取到文本编码，之后做一些匹配
 
-## Getting started
+RepL-VAN中的max-sigmoid是需要每一个特征图上的点去和这三个文本编码特征做匹配，一旦与这三个本文一个有关系就保留这个点。通过本文的特征编码来重新整合一下，特征图中哪些区域是我需要特别关注的，将他的权重值设置的更大
+![image-20240409151830250](https://github.com/jiangsu415/yolo_world/assets/130949548/d291297e-9aed-4a06-8aa8-187dc6bf7a45)
 
-### 1. Installation
+做cross-Attention是序列和序列做，但是图像是特征图维度不匹配，所以要把特征图转化为一个特征序列，所以他先做一个不同尺度的一个池化把特征图大小都转化为3*3的大小后，把这个三个不同尺度的特征图做成一个序列一维的序列，去和文本特征做一个匹配和更新
+![image-20240409152708483](https://github.com/jiangsu415/yolo_world/assets/130949548/3a79f77b-c34b-4593-b6dd-1cfeeff693be)
 
-YOLO-World is developed based on `torch==1.11.0` `mmyolo==0.6.0` and `mmdetection==3.0.0`.
+之后像输入三个不同尺度的特征，链接一个yolo-head做一个boundingbox，另外他还输出一个物体的embedding去计算和哪个文本序列是相似的，和哪个相似度越大就说属于哪个类别
 
-#### Clone Project 
+![image-20240409153824682](https://github.com/jiangsu415/yolo_world/assets/130949548/774af7c4-fbe0-44ee-ab28-5749f8f5ec4c)
 
-```bash
-git clone --recursive https://github.com/AILab-CVC/YOLO-World.git
-```
-#### Install
+文本矫正后，得到文本加权后的特征图
 
-```bash
-pip install torch wheel -q
-pip install -e .
-```
+![image-20240409153721151](https://github.com/jiangsu415/yolo_world/assets/130949548/6b251b5f-dceb-43bb-abe4-fdf2ccb0db77)
 
-### 2. Preparing Data
+区域文本对比损失，图像的object embedding和文本做一个匹配，和哪个匹配上就是哪个。
 
-We provide the details about the pre-training data in [docs/data](./docs/data.md).
-
-
-## Training & Evaluation
-
-We adopt the default [training](./tools/train.py) or [evaluation](./tools/test.py) scripts of [mmyolo](https://github.com/open-mmlab/mmyolo).
-We provide the configs for pre-training and fine-tuning in `configs/pretrain` and `configs/finetune_coco`.
-Training YOLO-World is easy:
-
-```bash
-chmod +x tools/dist_train.sh
-# sample command for pre-training, use AMP for mixed-precision training
-./tools/dist_train.sh configs/pretrain/yolo_world_l_t2i_bn_2e-4_100e_4x8gpus_obj365v1_goldg_train_lvis_minival.py 8 --amp
-```
-**NOTE:** YOLO-World is pre-trained on 4 nodes with 8 GPUs per node (32 GPUs in total). For pre-training, the `node_rank` and `nnodes` for multi-node training should be specified. 
-
-Evaluating YOLO-World is also easy:
-
-```bash
-chmod +x tools/dist_test.sh
-./tools/dist_test.sh path/to/config path/to/weights 8
-```
-
-**NOTE:** We mainly evaluate the performance on LVIS-minival for pre-training.
-
-## Fine-tuning YOLO-World
-
-We provide the details about fine-tuning YOLO-World in [docs/fine-tuning](./docs/finetuning.md).
-
-## Deployment
-
-We provide the details about deployment for downstream applications in [docs/deployment](./docs/deploy.md).
-You can directly download the ONNX model through the online [demo](https://huggingface.co/spaces/stevengrove/YOLO-World) in Huggingface Spaces 🤗.
-
-## Demo
-
-### Gradio Demo
-
-We provide the [Gradio](https://www.gradio.app/) demo for local devices:
-
-```bash
-pip install gradio==4.16.0
-python demo.py path/to/config path/to/weights
-```
-
-Additionaly, you can use a Dockerfile to build an image with gradio. As a prerequisite, make sure you have respective drivers installed alongside [nvidia-container-runtime](https://stackoverflow.com/questions/59691207/docker-build-with-nvidia-runtime). Replace MODEL_NAME and WEIGHT_NAME with the respective values or ommit this and use default values from the [Dockerfile](Dockerfile#3)
-
-```bash
-docker build --build-arg="MODEL=MODEL_NAME" --build-arg="WEIGHT=WEIGHT_NAME" -t yolo_demo .
-docker run --runtime nvidia -p 8080:8080
-```
-
-### Image Demo
-
-We provide a simple image demo for inference on images with visualization outputs.
-
-```bash
-python image_demo.py path/to/config path/to/weights image/path/directory 'person,dog,cat' --topk 100 --threshold 0.005 --output-dir demo_outputs
-```
-
-**Notes:**
-* The `image` can be a directory or a single image.
-* The `texts` can be a string of categories (noun phrases) which is separated by a comma. We also support `txt` file in which each line contains a category ( noun phrases).
-* The `topk` and `threshold` control the number of predictions and the confidence threshold.
-
-### Google Golab Notebook
-
-We sincerely thank [Onuralp](https://github.com/onuralpszr) for sharing the [Colab Demo](https://colab.research.google.com/drive/1F_7S5lSaFM06irBCZqjhbN7MpUXo6WwO?usp=sharing), you can have a try 😊！
-
-
-## Acknowledgement
-
-We sincerely thank [mmyolo](https://github.com/open-mmlab/mmyolo), [mmdetection](https://github.com/open-mmlab/mmdetection), [GLIP](https://github.com/microsoft/GLIP), and [transformers](https://github.com/huggingface/transformers) for providing their wonderful code to the community!
-
-## Citations
-If you find YOLO-World is useful in your research or applications, please consider giving us a star 🌟 and citing it.
-
-```bibtex
-@article{cheng2024yolow,
-  title={YOLO-World: Real-Time Open-Vocabulary Object Detection},
-  author={Cheng, Tianheng and Song, Lin and Ge, Yixiao and Liu, Wenyu and Wang, Xinggang and Shan, Ying},
-  journal={arXiv preprint arXiv:2401.17270},
-  year={2024}
-}
-```
-
-## Licence
-YOLO-World is under the GPL-v3 Licence and is supported for comercial usage.
->>>>>>> 43cb308 (yoloworld)
+伪标签，图像文本配对，提示的文本。
